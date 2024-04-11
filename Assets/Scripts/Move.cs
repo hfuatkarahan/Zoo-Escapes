@@ -4,114 +4,67 @@ using Unity.VisualScripting;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Move : MonoBehaviour
 {
-    public int Speed = 10, StarScore = 0;
-    //public Transform leftPoint, midPoint, rightPoint;
-    public int LeftPos, MidPos, RightPos;
-    public bool atLeft, atRight, atMid = true, onMove = false;
-    public Positions positions;
-    private UIManager uiManager;
+    public int speed = 1;
+    public float leftBorder = -2.5f, rightBorder = 2.5f;
+    float transSpeed = 0.25f;
+    public bool onLeft = false, mid = true, onRight = false;
 
-    void Awake()
+    public void AnimPlay(string animName)
     {
-        uiManager = GameObject.Find("GameManager").GetComponent<UIManager>();
-    }
-    public enum Positions
-    {
-        onLeft,
-        onMid,
-        onRight
+        GetComponent<Animator>().SetBool("Run", false);
+        GetComponent<Animator>().SetBool("Idle", false);
+        GetComponent<Animator>().SetBool("Die", false);
+        GetComponent<Animator>().SetBool(animName, true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * Speed);
-        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && !atLeft && !onMove)
-        {
-            if (atMid)
-            {
-                atLeft = true;
-                atMid = false;
-            }
-            else if (atRight)
-            {
-                atRight = false;
-                atMid = true;
-            }
-            if (positions == Positions.onMid)
-            {
-                positions = Positions.onLeft;
-            }
-            else if (positions == Positions.onRight)
-            {
-                positions = Positions.onMid;
-            }
-            //transform.position = new Vector3(transform.position.x - 3, transform.position.y, transform.position.z);
-            transform.DOMoveX(transform.position.x - 3, 0.25f).SetEase(Ease.Linear).OnComplete(OnMoveToFalse);
-            onMove = true;
-        }
-        if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && positions != Positions.onRight && !onMove)
-        {
-            if (atMid)
-            {
-                atRight = true;
-                atMid = false;
-            }
-            else if (atLeft)
-            {
-                atLeft = false;
-                atMid = true;
-            }
-            if (positions == Positions.onMid)
-            {
-                positions = Positions.onRight;
-            }
+        transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * speed);
 
-            else if (positions == Positions.onLeft)
-            {
-                positions = Positions.onMid;
-            }
-            //transform.position = new Vector3(transform.position.x + 3, transform.position.y, transform.position.z);
-            transform.DOMoveX(transform.position.x + 3, 0.25f).SetEase(Ease.Linear).OnComplete(OnMoveToFalse);
-            onMove = true;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GetComponent<Animator>().SetTrigger("Jump");
+            //transform.DOJump(new Vector3(transform.position.x,2,transform.position.z), 1, 1, 0.5f);
+            transform.DOMoveY(4, 0.5f);
+            transform.DOMoveY(0.55f, 1.0f).SetDelay(0.5f);
+        }
+        if (Input.GetKeyDown(KeyCode.A) && onLeft == false && mid == true)
+        {
+            onLeft = true;
+            mid = false;
+            transform.DOMoveX(leftBorder, transSpeed);
+            GetComponent<Animator>().SetTrigger("GoLeft");
+            //transform.position = new Vector3(-2, height, transform.position.z);
+        }
+        else if (Input.GetKeyDown(KeyCode.A) && mid == false && onRight == true)
+        {
+            onRight = false;
+            mid = true;
+            transform.DOMoveX(0, transSpeed);
+            GetComponent<Animator>().SetTrigger("GoLeft");
+            //transform.position = new Vector3(0, height, transform.position.z);
+        }
+        if (Input.GetKeyDown(KeyCode.D) && onRight == false && mid == true)
+        {
+            onRight = true;
+            mid = false;
+            transform.DOMoveX(rightBorder, transSpeed);
+            GetComponent<Animator>().SetTrigger("GoRight");
+            //transform.position = new Vector3(2, height, transform.position.z);
+        }
+        else if (Input.GetKeyDown(KeyCode.D) && onLeft == true && mid == false)
+        {
+            onLeft = false;
+            mid = true;
+            transform.DOMoveX(0, transSpeed);
+            GetComponent<Animator>().SetTrigger("GoRight");
+            //transform.position = new Vector3(0, height, transform.position.z);
         }
     }
 
-    public void OnMoveToFalse()
-    {
-        onMove = false;
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Star"))
-        {
-            StarScore++;
-            uiManager.inGamePanel.transform.Find("Score Text").GetComponent<TextMeshProUGUI>().text = "Score: " + StarScore.ToString();
-            //other.gameObject.SetActive(false);
-            other.GetComponent<MeshRenderer>().material.DOColor(Color.red, 1);
-        }
-        if (other.tag == "Finish")
-        {
-            Speed = 0;
-            //gameObject.GetComponent<Animator>().enabled = false;
-            uiManager.winPanel.SetActive(true);
-        }
-        
-        if (other.CompareTag("CheckPoint"))
-        {
-            Speed *= 2;
-            //transform.GetChild(1).DOLocalRotate(new Vector3(-90, 270, 90), 1);
-        }
-        if (other.tag == "Obstacle")
-        {
-            Speed = 0;
-            uiManager.failPanel.SetActive(true);
-        }
-
-    }
 }
-
