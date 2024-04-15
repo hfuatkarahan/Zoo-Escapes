@@ -8,37 +8,60 @@ using UnityEngine.SceneManagement;
 
 public class Move : MonoBehaviour
 {
-    public int speed = 1;
-    public float leftBorder = -2.5f, rightBorder = 2.5f;
+    public int speed = 0;
+    public float leftBorder = -2.75f, rightBorder = 2.75f;
     float transSpeed = 0.25f;
     public bool onLeft = false, mid = true, onRight = false;
+    private Animator playerAnim;
+    private GameObject myFoxBody;
+
+    void Awake()
+    {
+        playerAnim = transform.Find("Player").GetComponent<Animator>();
+        myFoxBody = transform.Find("Player").gameObject;
+    }
 
     public void AnimPlay(string animName)
     {
-        GetComponent<Animator>().SetBool("Run", false);
-        GetComponent<Animator>().SetBool("Idle", false);
-        GetComponent<Animator>().SetBool("Die", false);
-        GetComponent<Animator>().SetBool(animName, true);
+        playerAnim.SetBool("Run", false);
+        playerAnim.SetBool("Idle", false);
+        playerAnim.SetBool("Die", false);
+        playerAnim.SetBool("Somersault", false);
+        playerAnim.SetBool(animName, true);
+    }
+
+    void PlayerOriginalCollider()
+    {
+        myFoxBody.GetComponent<BoxCollider>().size = new Vector3(1f, 1.69f, 2.79f);
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * speed);
+        
 
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            GetComponent<Animator>().SetTrigger("Jump");
+            playerAnim.SetTrigger("Jump");
             //transform.DOJump(new Vector3(transform.position.x,2,transform.position.z), 1, 1, 0.5f);
             transform.DOMoveY(4, 0.5f);
             transform.DOMoveY(0.55f, 1.0f).SetDelay(0.5f);
         }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            playerAnim.SetTrigger("Somersault");
+            myFoxBody.GetComponent<BoxCollider>().size = new Vector3(1f, 0.85f, 2.79f);
+            myFoxBody.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f).SetDelay(0.5f).OnComplete(PlayerOriginalCollider);
+        }
+        
         if (Input.GetKeyDown(KeyCode.A) && onLeft == false && mid == true)
         {
             onLeft = true;
             mid = false;
             transform.DOMoveX(leftBorder, transSpeed);
-            GetComponent<Animator>().SetTrigger("GoLeft");
+            playerAnim.SetTrigger("RunLeft");
             //transform.position = new Vector3(-2, height, transform.position.z);
         }
         else if (Input.GetKeyDown(KeyCode.A) && mid == false && onRight == true)
@@ -46,7 +69,7 @@ public class Move : MonoBehaviour
             onRight = false;
             mid = true;
             transform.DOMoveX(0, transSpeed);
-            GetComponent<Animator>().SetTrigger("GoLeft");
+            playerAnim.SetTrigger("RunLeft");
             //transform.position = new Vector3(0, height, transform.position.z);
         }
         if (Input.GetKeyDown(KeyCode.D) && onRight == false && mid == true)
@@ -54,7 +77,7 @@ public class Move : MonoBehaviour
             onRight = true;
             mid = false;
             transform.DOMoveX(rightBorder, transSpeed);
-            GetComponent<Animator>().SetTrigger("GoRight");
+            playerAnim.SetTrigger("RunRight");
             //transform.position = new Vector3(2, height, transform.position.z);
         }
         else if (Input.GetKeyDown(KeyCode.D) && onLeft == true && mid == false)
@@ -62,7 +85,7 @@ public class Move : MonoBehaviour
             onLeft = false;
             mid = true;
             transform.DOMoveX(0, transSpeed);
-            GetComponent<Animator>().SetTrigger("GoRight");
+            playerAnim.SetTrigger("RunRight");
             //transform.position = new Vector3(0, height, transform.position.z);
         }
     }
