@@ -10,18 +10,21 @@ public class Player : MonoBehaviour
     ScoreManager scoremanager;
     float uiOpeningTime = 0.75f;
     public Transform camLastPos, camLastPos2;
+    GameManager gamemanager;
 
     private void Awake()
     {
         move = GameObject.FindGameObjectWithTag("Player").GetComponent<Move>();
         uimanager = GameObject.Find("GameManager").GetComponent<UIManager>();
         scoremanager = GameObject.Find("GameManager").GetComponent<ScoreManager>();
+        gamemanager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Finish"))
         {
+            gamemanager.levelFinished = true;
             move.AnimPlay("Victory");
             move.speed = 0;
             Invoke(nameof(WinCondition), uiOpeningTime + 2);
@@ -34,14 +37,17 @@ public class Player : MonoBehaviour
         if (other.CompareTag("Collectible"))
         {
             Destroy(other.gameObject);
-            //other.gameObject.SetActive(false);
-            scoremanager.UpdateStarScore();
+            if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Star)
+                scoremanager.UpdateStarScore();
+            else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.DoubleXP)
+                StartCoroutine(scoremanager.DoubleXP());
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
+            gamemanager.levelFinished = true;
             move.AnimPlay("Die");
             move.speed = 0;
             Invoke(nameof(FailCondition), uiOpeningTime);
