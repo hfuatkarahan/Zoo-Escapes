@@ -10,11 +10,13 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI starCountText, scoreText, winScoreText;
     GameObject player;
     ScoreManager scoreManager;
+    GameManager gameManager;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         scoreManager = GetComponent<ScoreManager>();
+        gameManager = GetComponent<GameManager>();
     }
 
     void OpenPanel(GameObject panelObject, GameObject secondPanel)
@@ -52,6 +54,7 @@ public class UIManager : MonoBehaviour
         player.GetComponent<Move>().speed = 10;
         player.GetComponent<Move>().AnimPlay("Run");
         StartCoroutine(scoreManager.ScoreUpdate());
+        gameManager.levelFinished = false;
     }
 
     public void NextLevel()
