@@ -9,6 +9,7 @@ public class Collectible : MonoBehaviour
     {
         Flash,
         Star,
-        DoubleXP
+        DoubleXP,
+        Shield
     }
 }

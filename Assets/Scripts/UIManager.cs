@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public GameObject startPanel, inGamePanel, endPanel, winPanel, failPanel;
-    public TextMeshProUGUI starCountText, scoreText, winScoreText;
+    public Image shieldIcon;
+    public TextMeshProUGUI starCountText, scoreText, winScoreText, shieldCountText;
     GameObject player;
     ScoreManager scoreManager;
     GameManager gameManager;
