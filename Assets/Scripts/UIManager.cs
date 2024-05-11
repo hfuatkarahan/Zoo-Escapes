@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public GameObject startPanel, inGamePanel, endPanel, winPanel, failPanel;
-    public Image shieldIcon;
+    public Image shieldIcon, starIcon;
     public TextMeshProUGUI starCountText, scoreText, winScoreText, shieldCountText;
     GameObject player;
     ScoreManager scoreManager;

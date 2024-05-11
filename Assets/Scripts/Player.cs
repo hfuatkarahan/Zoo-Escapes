@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     Move move;
     UIManager uimanager;
     ScoreManager scoremanager;
-    float uiOpeningTime = 0.75f;
+    float uiOpeningTime = 1.5f;
     public Transform camLastPos, camLastPos2;
     GameManager gamemanager;
     bool isShieldActive;
@@ -43,13 +43,22 @@ public class Player : MonoBehaviour
             if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Star)
                 scoremanager.UpdateStarScore();
             else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.DoubleXP)
+            {
                 StartCoroutine(scoremanager.DoubleXP());
+            }
+            else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Coin)
+            {
+                //StartCoroutine(scoremanager.DoubleXP());
+            }
+            else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Magnet)
+            {
+                //StartCoroutine(scoremanager.DoubleXP());
+            }
             else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Shield)
             {
                 isShieldActive = true;
                 shieldCounter++;
                 uimanager.shieldCountText.text = shieldCounter.ToString();
-                shield.SetActive(true);
                 uimanager.shieldIcon.color = Color.white;
                 uimanager.shieldCountText.color = Color.white;
             }
@@ -63,20 +72,30 @@ public class Player : MonoBehaviour
             move.AnimPlay("Die");
             move.speed = 0;
             Invoke(nameof(FailCondition), uiOpeningTime);
+            try
+            {
+                collision.gameObject.transform.Find("Wall Crack").gameObject.SetActive(true);
+            }
+            catch 
+            {
+                print("No child object");
+            }
+            
         }
         else if (collision.gameObject.CompareTag("Obstacle") && isShieldActive)
         {
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
             shieldCounter--;
             uimanager.shieldCountText.text = shieldCounter.ToString();
             if(shieldCounter == 0)
             {
                 uimanager.shieldIcon.DOColor(new Color(1, 1, 1, 0.3f), 0.25f);
                 uimanager.shieldCountText.DOColor(new Color(1, 1, 1, 0.3f), 0.25f);
-                shield.SetActive(false);
                 isShieldActive = false;
             }
-
+            collision.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            collision.gameObject.GetComponent<BoxCollider>().enabled = false;
+            collision.transform.Find("PlasmaExplosionEffect").gameObject.SetActive(true);
         }
     }
 
