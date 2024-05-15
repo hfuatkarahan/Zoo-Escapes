@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     float uiOpeningTime = 1.5f;
     public Transform camLastPos, camLastPos2;
     GameManager gamemanager;
-    bool isShieldActive;
+    public bool isShieldActive, isMagnetActive;
     public GameObject shield;
     int shieldCounter = 0;
 
@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
             }
             else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Magnet)
             {
+                isMagnetActive = true;
                 //StartCoroutine(scoremanager.DoubleXP());
             }
             else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Shield)
