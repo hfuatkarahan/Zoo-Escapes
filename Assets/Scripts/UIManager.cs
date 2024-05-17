@@ -8,8 +8,8 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public GameObject startPanel, inGamePanel, endPanel, winPanel, failPanel;
-    public Image shieldIcon, starIcon;
-    public TextMeshProUGUI starCountText, scoreText, winScoreText, shieldCountText;
+    public Image shieldIcon, starIcon, magnetIcon;
+    public TextMeshProUGUI starCountText, scoreText, winScoreText, shieldCountText, coinCountText;
     GameObject playerParent;
     ScoreManager scoreManager;
     GameManager gameManager;

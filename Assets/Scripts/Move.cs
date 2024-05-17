@@ -44,12 +44,18 @@ public class Move : MonoBehaviour
         {
             transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * speed);
 
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                myFoxBody.transform.DOKill();
+                myFoxBody.transform.DOMoveY(0.55f, 0.2f).SetEase(Ease.InFlash);
+            }
             if (Input.GetKeyDown(KeyCode.W))
             {
                 playerAnim.SetTrigger("Jump");
+                myFoxBody.GetComponent<Player>().jumpSound.Play();
                 //transform.DOJump(new Vector3(transform.position.x,2,transform.position.z), 1, 1, 0.5f);
                 myFoxBody.transform.DOMoveY(4, 0.5f).SetEase(Ease.OutFlash);
-                myFoxBody.transform.DOMoveY(0.55f, 0.5f).SetDelay(0.5f).SetEase(Ease.InFlash);
+                myFoxBody.transform.DOMoveY(0.55f, 0.75f).SetDelay(0.5f).SetEase(Ease.InFlash);
             }
             if (Input.GetKeyDown(KeyCode.S))
             {

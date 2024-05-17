@@ -14,13 +14,31 @@ public class Player : MonoBehaviour
     public bool isShieldActive, isMagnetActive;
     public GameObject shield;
     int shieldCounter = 0;
+    public AudioSource coinSound, magnetSound, starSound, wallHitSound, shieldSound, jumpSound;
 
     private void Awake()
     {
-        move = GameObject.FindGameObjectWithTag("Player").GetComponent<Move>();
+        move = GameObject.FindGameObjectWithTag("PlayerParent").GetComponent<Move>();
         uimanager = GameObject.Find("GameManager").GetComponent<UIManager>();
         scoremanager = GameObject.Find("GameManager").GetComponent<ScoreManager>();
         gamemanager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    //private void Start()
+    //{
+    //    DOTween.SetTweensCapacity(500, 2000);
+    //}
+
+    IEnumerator MagnetActive()
+    {
+        uimanager.magnetIcon.fillAmount = 1;
+
+        for (float i = 1; i >= 0; i -= 0.01f)
+        {
+            yield return new WaitForSeconds(0.06f);
+            uimanager.magnetIcon.fillAmount = i;
+        }
+        isMagnetActive = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,20 +57,25 @@ public class Player : MonoBehaviour
         }
         if (other.CompareTag("Collectible"))
         {
-            Destroy(other.gameObject);
             if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Star)
                 scoremanager.UpdateStarScore();
             else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.DoubleXP)
             {
+                starSound.Play();
                 StartCoroutine(scoremanager.DoubleXP());
             }
             else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Coin)
             {
-                //StartCoroutine(scoremanager.DoubleXP());
+                coinSound.Play();
+                scoremanager.levelCoin++;
+                uimanager.coinCountText.text = scoremanager.levelCoin.ToString();
+                other.GetComponent<Collectible>().collected = true;
+                other.transform.DOKill();
             }
             else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Magnet)
             {
                 isMagnetActive = true;
+                StartCoroutine(MagnetActive());
                 //StartCoroutine(scoremanager.DoubleXP());
             }
             else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Shield)
@@ -63,12 +86,14 @@ public class Player : MonoBehaviour
                 uimanager.shieldIcon.color = Color.white;
                 uimanager.shieldCountText.color = Color.white;
             }
+            Destroy(other.gameObject);
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle") && !isShieldActive)
         {
+            wallHitSound.Play();
             gamemanager.levelFinished = true;
             move.AnimPlay("Die");
             move.speed = 0;
@@ -85,6 +110,7 @@ public class Player : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Obstacle") && isShieldActive)
         {
+            wallHitSound.Play();
             //Destroy(collision.gameObject);
             shieldCounter--;
             uimanager.shieldCountText.text = shieldCounter.ToString();

@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - Collectible
   - PlayerParent
+  - GameSounds
   layers:
   - Default
   - TransparentFX

@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: fa0a723e3534aca47bcf60641f2f3a8d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: fa0a723e3534aca47bcf60641f2f3a8d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -123,7 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7024590b15ee6274a9bb602cc3d0aba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cType: 3
+  cType: 2
+  collected: 0
 --- !u!65 &4441213742116738332
 BoxCollider:
   m_ObjectHideFlags: 0
