@@ -74,12 +74,14 @@ public class Player : MonoBehaviour
             }
             else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Magnet)
             {
+                magnetSound.Play();
                 isMagnetActive = true;
                 StartCoroutine(MagnetActive());
                 //StartCoroutine(scoremanager.DoubleXP());
             }
             else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Shield)
             {
+                shieldSound.Play();
                 isShieldActive = true;
                 shieldCounter++;
                 uimanager.shieldCountText.text = shieldCounter.ToString();
