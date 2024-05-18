@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject startPanel, inGamePanel, endPanel, winPanel, failPanel;
     public Image shieldIcon, starIcon, magnetIcon;
     public TextMeshProUGUI starCountText, scoreText, winScoreText, shieldCountText, coinCountText;
-    GameObject playerParent;
+    GameObject playerParent, gameSounds;
     ScoreManager scoreManager;
     GameManager gameManager;
 
@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
         playerParent = GameObject.FindGameObjectWithTag("PlayerParent");
         scoreManager = GetComponent<ScoreManager>();
         gameManager = GetComponent<GameManager>();
+        gameSounds = GameObject.Find("Game Sounds");
     }
 
     void OpenPanel(GameObject panelObject, GameObject secondPanel)
@@ -43,10 +44,14 @@ public class UIManager : MonoBehaviour
     public void FailPanel()
     {
         OpenPanel(failPanel, endPanel);
+        gameSounds.transform.Find("BG Music").GetComponent<AudioSource>().Stop();
+        //gameSounds.transform.Find("Fail Music").GetComponent<AudioSource>().Play();
     }
     public void WinPanel()
     {
         OpenPanel(winPanel, endPanel);
+        gameSounds.transform.Find("BG Music").GetComponent<AudioSource>().Stop();
+        //gameSounds.transform.Find("Win Music").GetComponent<AudioSource>().Play();
     }
     #region Button Functions
     public void TapToStart()
@@ -57,6 +62,7 @@ public class UIManager : MonoBehaviour
         playerParent.GetComponent<Move>().AnimPlay("Run");
         StartCoroutine(scoreManager.ScoreUpdate());
         gameManager.levelFinished = false;
+        gameSounds.transform.Find("BG Music").GetComponent<AudioSource>().Play();
     }
 
     public void NextLevel()

@@ -113,7 +113,6 @@ public class Player : MonoBehaviour
         else if (collision.gameObject.CompareTag("Obstacle") && isShieldActive)
         {
             wallHitSound.Play();
-            //Destroy(collision.gameObject);
             shieldCounter--;
             uimanager.shieldCountText.text = shieldCounter.ToString();
             if(shieldCounter == 0)
@@ -124,8 +123,19 @@ public class Player : MonoBehaviour
             }
             collision.gameObject.GetComponent<MeshRenderer>().enabled = false;
             collision.gameObject.GetComponent<BoxCollider>().enabled = false;
-            collision.transform.Find("PlasmaExplosionEffect").gameObject.SetActive(true);
+                GameObject expEffect = collision.transform.Find("PlasmaExplosionEffect").gameObject;
+                expEffect.SetActive(true);
+                expEffect.GetComponent<ParticleSystem>().Play();
+                expEffect.transform.parent = null;
+                StartCoroutine(ObjectDestroyer(expEffect, 1));
+            Destroy(collision.gameObject);
         }
+    }
+
+    IEnumerator ObjectDestroyer(GameObject destroyObj, float timer)
+    {
+        yield return new WaitForSeconds(timer);
+        Destroy(destroyObj);
     }
 
     void FailCondition()
