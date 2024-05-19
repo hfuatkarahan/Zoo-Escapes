@@ -112,6 +112,7 @@ public class Player : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Obstacle") && isShieldActive)
         {
+            collision.gameObject.GetComponent<BoxCollider>().enabled = false;
             wallHitSound.Play();
             shieldCounter--;
             uimanager.shieldCountText.text = shieldCounter.ToString();
@@ -121,8 +122,7 @@ public class Player : MonoBehaviour
                 uimanager.shieldCountText.DOColor(new Color(1, 1, 1, 0.3f), 0.25f);
                 isShieldActive = false;
             }
-            collision.gameObject.GetComponent<MeshRenderer>().enabled = false;
-            collision.gameObject.GetComponent<BoxCollider>().enabled = false;
+            
                 GameObject expEffect = collision.transform.Find("PlasmaExplosionEffect").gameObject;
                 expEffect.SetActive(true);
                 expEffect.GetComponent<ParticleSystem>().Play();
