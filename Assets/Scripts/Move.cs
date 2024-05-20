@@ -15,6 +15,7 @@ public class Move : MonoBehaviour
     private Animator playerAnim;
     private GameObject myFoxBody;
     GameManager gameManager;
+    public float jumpHeight = 2;
 
     void Awake()
     {
@@ -49,13 +50,12 @@ public class Move : MonoBehaviour
                 myFoxBody.transform.DOKill();
                 myFoxBody.transform.DOMoveY(0.55f, 0.2f).SetEase(Ease.InFlash);
             }
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W) && myFoxBody.GetComponent<Player>().onGround)
             {
                 playerAnim.SetTrigger("Jump");
                 myFoxBody.GetComponent<Player>().jumpSound.Play();
-                //transform.DOJump(new Vector3(transform.position.x,2,transform.position.z), 1, 1, 0.5f);
-                myFoxBody.transform.DOMoveY(4, 0.5f).SetEase(Ease.OutFlash);
-                myFoxBody.transform.DOMoveY(0.55f, 0.75f).SetDelay(0.5f).SetEase(Ease.InFlash);
+                myFoxBody.transform.DOMoveY(myFoxBody.transform.localPosition.y + jumpHeight, 0.5f).SetEase(Ease.OutFlash);
+                myFoxBody.transform.DOMoveY(myFoxBody.transform.localPosition.y, 0.75f).SetDelay(0.5f).SetEase(Ease.InFlash);
             }
             if (Input.GetKeyDown(KeyCode.S))
             {

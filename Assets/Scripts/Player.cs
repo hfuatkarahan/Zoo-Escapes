@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class Player : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class Player : MonoBehaviour
     float uiOpeningTime = 1.5f;
     public Transform camLastPos, camLastPos2;
     GameManager gamemanager;
-    public bool isShieldActive, isMagnetActive;
-    public GameObject shield;
+    public bool isShieldActive, isMagnetActive, onGround;
+    public GameObject shield, frontShoe, backShoe;
     int shieldCounter = 0;
     public AudioSource coinSound, magnetSound, starSound, wallHitSound, shieldSound, jumpSound;
 
@@ -77,7 +78,15 @@ public class Player : MonoBehaviour
                 magnetSound.Play();
                 isMagnetActive = true;
                 StartCoroutine(MagnetActive());
-                //StartCoroutine(scoremanager.DoubleXP());
+            }
+            else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Sneaker)
+            {
+                shieldSound.Play();
+                frontShoe.SetActive(true);
+                backShoe.SetActive(true);
+                //isMagnetActive = true;
+                //StartCoroutine(MagnetActive());
+                move.jumpHeight = 4.5f;
             }
             else if (other.GetComponent<Collectible>().cType == Collectible.CollectibleType.Shield)
             {
@@ -129,6 +138,27 @@ public class Player : MonoBehaviour
                 expEffect.transform.parent = null;
                 StartCoroutine(ObjectDestroyer(expEffect, 1));
             Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Surface") && !gamemanager.levelFinished)
+        {
+            transform.DOKill();
+            move.AnimPlay("Run");
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Surface"))
+        {
+            onGround = true;
+        }
+    }
+
+    private void OnCollisionExit (Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Surface"))
+        {
+            onGround = false;
         }
     }
 

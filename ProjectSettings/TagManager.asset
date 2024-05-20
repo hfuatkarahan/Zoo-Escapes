@@ -9,6 +9,7 @@ TagManager:
   - Collectible
   - PlayerParent
   - GameSounds
+  - Surface
   layers:
   - Default
   - TransparentFX
