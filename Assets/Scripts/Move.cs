@@ -38,6 +38,63 @@ public class Move : MonoBehaviour
         myFoxBody.GetComponent<BoxCollider>().size = new Vector3(1f, 1.69f, 2.79f);
     }
 
+    public void Jump()
+    {
+        if (!gameManager.levelFinished)
+        {
+            playerAnim.SetTrigger("Jump");
+            myFoxBody.GetComponent<Player>().jumpSound.Play();
+            myFoxBody.transform.DOMoveY(myFoxBody.transform.localPosition.y + jumpHeight, 0.5f).SetEase(Ease.OutFlash);
+            myFoxBody.transform.DOMoveY(myFoxBody.transform.localPosition.y, 0.75f).SetDelay(0.5f).SetEase(Ease.InFlash);
+        }
+    }
+
+    public void GoLeft()
+    {
+        if (!gameManager.levelFinished)
+        {
+            if (onLeft == false && mid == true)
+            {
+                onLeft = true;
+                mid = false;
+                transform.DOMoveX(leftBorder, transSpeed);
+                playerAnim.SetTrigger("RunLeft");
+                //transform.position = new Vector3(-2, height, transform.position.z);
+            }
+            else if (mid == false && onRight == true)
+            {
+                onRight = false;
+                mid = true;
+                transform.DOMoveX(0, transSpeed);
+                playerAnim.SetTrigger("RunLeft");
+                //transform.position = new Vector3(0, height, transform.position.z);
+            }
+        }
+    }
+
+    public void GoRight()
+    {
+        if (!gameManager.levelFinished)
+        {
+            if (onRight == false && mid == true)
+            {
+                onRight = true;
+                mid = false;
+                transform.DOMoveX(rightBorder, transSpeed);
+                playerAnim.SetTrigger("RunRight");
+                //transform.position = new Vector3(2, height, transform.position.z);
+            }
+            else if (onLeft == true && mid == false)
+            {
+                onLeft = false;
+                mid = true;
+                transform.DOMoveX(0, transSpeed);
+                playerAnim.SetTrigger("RunRight");
+                //transform.position = new Vector3(0, height, transform.position.z);
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -52,10 +109,7 @@ public class Move : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.W) && myFoxBody.GetComponent<Player>().onGround)
             {
-                playerAnim.SetTrigger("Jump");
-                myFoxBody.GetComponent<Player>().jumpSound.Play();
-                myFoxBody.transform.DOMoveY(myFoxBody.transform.localPosition.y + jumpHeight, 0.5f).SetEase(Ease.OutFlash);
-                myFoxBody.transform.DOMoveY(myFoxBody.transform.localPosition.y, 0.75f).SetDelay(0.5f).SetEase(Ease.InFlash);
+                Jump();
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
