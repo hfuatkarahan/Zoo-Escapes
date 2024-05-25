@@ -95,6 +95,11 @@ public class Move : MonoBehaviour
         }
     }
 
+    public void GoDown()
+    {
+        myFoxBody.transform.DOKill();
+        myFoxBody.transform.DOMoveY(0.55f, 0.2f).SetEase(Ease.InFlash);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -107,10 +112,15 @@ public class Move : MonoBehaviour
                 myFoxBody.transform.DOKill();
                 myFoxBody.transform.DOMoveY(0.55f, 0.2f).SetEase(Ease.InFlash);
             }
+
             if (Input.GetKeyDown(KeyCode.W) && myFoxBody.GetComponent<Player>().onGround)
             {
-                Jump();
+                playerAnim.SetTrigger("Jump");
+                myFoxBody.GetComponent<Player>().jumpSound.Play();
+                myFoxBody.transform.DOMoveY(myFoxBody.transform.localPosition.y + jumpHeight, 0.5f).SetEase(Ease.OutFlash);
+                myFoxBody.transform.DOMoveY(myFoxBody.transform.localPosition.y, 0.75f).SetDelay(0.5f).SetEase(Ease.InFlash);
             }
+
             if (Input.GetKeyDown(KeyCode.S))
             {
                 playerAnim.SetTrigger("Somersault");
@@ -134,6 +144,7 @@ public class Move : MonoBehaviour
                 playerAnim.SetTrigger("RunLeft");
                 //transform.position = new Vector3(0, height, transform.position.z);
             }
+
             if (Input.GetKeyDown(KeyCode.D) && onRight == false && mid == true)
             {
                 onRight = true;
