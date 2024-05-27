@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     public GameObject shield, frontShoe, backShoe;
     int shieldCounter = 0;
     public AudioSource coinSound, magnetSound, starSound, wallHitSound, shieldSound, jumpSound;
+    public GameObject[] roads;
+    int roadCounter = 0, platformPlace = 48;
 
     private void Awake()
     {
@@ -98,6 +100,24 @@ public class Player : MonoBehaviour
                 uimanager.shieldCountText.color = Color.white;
             }
             Destroy(other.gameObject);
+        }
+        if (other.CompareTag("NewRoad"))
+        {
+            int newRoadNo;
+            move.speed++;
+            roadCounter++;
+            platformPlace += 123;
+            if(roadCounter % 3 == 0)
+            {
+                newRoadNo = 3;
+            }
+            else
+            {
+                newRoadNo = Random.Range(0, 3);
+            }
+            GameObject newRoad = Instantiate(roads[newRoadNo], new Vector3(26,-7,platformPlace), Quaternion.identity);
+            newRoad.SetActive(true);
+            newRoad.name = "RoadPart" + (newRoadNo + 1).ToString();
         }
     }
     private void OnCollisionEnter(Collision collision)

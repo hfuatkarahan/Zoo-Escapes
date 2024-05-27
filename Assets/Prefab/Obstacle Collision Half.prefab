@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5571625716794937011}
   - component: {fileID: 1822963834634210103}
   - component: {fileID: 2840938974502081402}
+  - component: {fileID: 183257563094328374}
   m_Layer: 0
   m_Name: Obstacle Collision Half
   m_TagString: Obstacle
@@ -29,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.09, y: 1.1136, z: -18.759998}
-  m_LocalScale: {x: 3, y: 0.82352877, z: 1}
+  m_LocalScale: {x: 3, y: 1.0432463, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4887341101089521749}
@@ -107,6 +108,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &183257563094328374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6477555353001653276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f55aa033c8a8fb640a5d6b0caf7a2539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  obsType: 1
 --- !u!1 &8776186463183631146
 GameObject:
   m_ObjectHideFlags: 0
