@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,4 +38,5 @@ public class Obstacle : MonoBehaviour
         if (!gameManager.levelFinished && obsType == ObstacleType.Train)
             transform.Translate(Vector3.back * Time.deltaTime * speed);
     }
+
 }

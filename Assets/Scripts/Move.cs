@@ -161,8 +161,9 @@ public class Move : MonoBehaviour
                 playerAnim.SetTrigger("RunRight");
                 //transform.position = new Vector3(0, height, transform.position.z);
             }
-        }
-        
+
+        }   
+
     }
 
 }
