@@ -35,7 +35,8 @@ public class Move : MonoBehaviour
 
     void PlayerOriginalCollider()
     {
-        myFoxBody.GetComponent<BoxCollider>().size = new Vector3(1f, 1.69f, 2.79f);
+        myFoxBody.GetComponent<CapsuleCollider>().center = new Vector3(0, 0.7f, -0.34f);
+        myFoxBody.GetComponent<CapsuleCollider>().radius = 0.74f;
     }
 
     public void Jump()
@@ -97,17 +98,9 @@ public class Move : MonoBehaviour
 
     public void GoDown()
     {
-        if (myFoxBody.GetComponent<Player>().onGround == false)
-        {
-            myFoxBody.transform.DOKill();
-            myFoxBody.transform.DOMoveY(0.55f, 0.2f).SetEase(Ease.InFlash);
-        }
-        else
-        {
-            playerAnim.SetTrigger("Somersault");
-            myFoxBody.GetComponent<BoxCollider>().size = new Vector3(1f, 0.85f, 2.79f);
-            myFoxBody.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f).SetDelay(0.5f).OnComplete(PlayerOriginalCollider);
-        }
+        myFoxBody.transform.DOKill();
+        myFoxBody.transform.DOMoveY(0.65f, 0.2f).SetEase(Ease.InFlash);
+
     }
     // Update is called once per frame
     void Update()
@@ -115,12 +108,6 @@ public class Move : MonoBehaviour
         if (!gameManager.levelFinished)
         {
             transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * speed);
-
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                myFoxBody.transform.DOKill();
-                myFoxBody.transform.DOMoveY(0.55f, 0.2f).SetEase(Ease.InFlash);
-            }
 
             if (Input.GetKeyDown(KeyCode.W) && myFoxBody.GetComponent<Player>().onGround)
             {
@@ -132,9 +119,8 @@ public class Move : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.S))
             {
-                playerAnim.SetTrigger("Somersault");
-                myFoxBody.GetComponent<BoxCollider>().size = new Vector3(1f, 0.85f, 2.79f);
-                myFoxBody.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f).SetDelay(0.5f).OnComplete(PlayerOriginalCollider);
+                myFoxBody.transform.DOKill();
+                myFoxBody.transform.DOMoveY(0.65f, 0.2f).SetEase(Ease.InFlash);
             }
 
             if (Input.GetKeyDown(KeyCode.A) && onLeft == false && mid == true)
