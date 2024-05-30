@@ -97,8 +97,17 @@ public class Move : MonoBehaviour
 
     public void GoDown()
     {
-        myFoxBody.transform.DOKill();
-        myFoxBody.transform.DOMoveY(0.55f, 0.2f).SetEase(Ease.InFlash);
+        if (myFoxBody.GetComponent<Player>().onGround == false)
+        {
+            myFoxBody.transform.DOKill();
+            myFoxBody.transform.DOMoveY(0.55f, 0.2f).SetEase(Ease.InFlash);
+        }
+        else
+        {
+            playerAnim.SetTrigger("Somersault");
+            myFoxBody.GetComponent<BoxCollider>().size = new Vector3(1f, 0.85f, 2.79f);
+            myFoxBody.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f).SetDelay(0.5f).OnComplete(PlayerOriginalCollider);
+        }
     }
     // Update is called once per frame
     void Update()
