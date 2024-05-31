@@ -35,8 +35,8 @@ public class Move : MonoBehaviour
 
     void PlayerOriginalCollider()
     {
-        myFoxBody.GetComponent<CapsuleCollider>().center = new Vector3(0, 0.7f, -0.34f);
-        myFoxBody.GetComponent<CapsuleCollider>().radius = 0.74f;
+        myFoxBody.GetComponent<BoxCollider>().size = new Vector3(1f, 1.69f, 2.79f);
+        myFoxBody.GetComponent<BoxCollider>().center = new Vector3(0, 0.87f, -0.41f);
     }
 
     public void Jump()
@@ -98,9 +98,18 @@ public class Move : MonoBehaviour
 
     public void GoDown()
     {
-        myFoxBody.transform.DOKill();
-        myFoxBody.transform.DOMoveY(0.65f, 0.2f).SetEase(Ease.InFlash);
-
+        if (myFoxBody.GetComponent<Player>().onGround == false)
+        {
+            myFoxBody.transform.DOKill();
+            myFoxBody.transform.DOMoveY(0.6f, 0.2f).SetEase(Ease.InFlash);
+        }
+        else
+        {
+            playerAnim.SetTrigger("Somersault");
+            myFoxBody.GetComponent<BoxCollider>().size = new Vector3(1f, 0.85f, 2.79f);
+            myFoxBody.GetComponent<BoxCollider>().center = new Vector3(0, 0.3f, -0.41f);
+            myFoxBody.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f).SetDelay(0.5f).OnComplete(PlayerOriginalCollider);
+        }
     }
     // Update is called once per frame
     void Update()
@@ -119,8 +128,18 @@ public class Move : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.S))
             {
-                myFoxBody.transform.DOKill();
-                myFoxBody.transform.DOMoveY(0.65f, 0.2f).SetEase(Ease.InFlash);
+                if (myFoxBody.GetComponent<Player>().onGround == false)
+                {
+                    myFoxBody.transform.DOKill();
+                    myFoxBody.transform.DOMoveY(0.6f, 0.2f).SetEase(Ease.InFlash);
+                }
+                else
+                {
+                    playerAnim.SetTrigger("Somersault");
+                    myFoxBody.GetComponent<BoxCollider>().size = new Vector3(1f, 0.85f, 2.79f);
+                    myFoxBody.GetComponent<BoxCollider>().center = new Vector3(0, 0.3f, -0.41f);
+                    myFoxBody.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f).SetDelay(0.5f).OnComplete(PlayerOriginalCollider);
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.A) && onLeft == false && mid == true)
