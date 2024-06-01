@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class Move : MonoBehaviour
 {
-    public int speed = 0;
+    public int speed = 0, maxSpeed = 19;
     public float leftBorder = -2.75f, rightBorder = 2.75f;
     float transSpeed = 0.25f;
     public bool onLeft = false, mid = true, onRight = false;
@@ -60,7 +60,6 @@ public class Move : MonoBehaviour
                 mid = false;
                 transform.DOMoveX(leftBorder, transSpeed);
                 playerAnim.SetTrigger("RunLeft");
-                //transform.position = new Vector3(-2, height, transform.position.z);
             }
             else if (mid == false && onRight == true)
             {
@@ -68,7 +67,6 @@ public class Move : MonoBehaviour
                 mid = true;
                 transform.DOMoveX(0, transSpeed);
                 playerAnim.SetTrigger("RunLeft");
-                //transform.position = new Vector3(0, height, transform.position.z);
             }
         }
     }
@@ -83,7 +81,6 @@ public class Move : MonoBehaviour
                 mid = false;
                 transform.DOMoveX(rightBorder, transSpeed);
                 playerAnim.SetTrigger("RunRight");
-                //transform.position = new Vector3(2, height, transform.position.z);
             }
             else if (onLeft == true && mid == false)
             {
@@ -91,7 +88,6 @@ public class Move : MonoBehaviour
                 mid = true;
                 transform.DOMoveX(0, transSpeed);
                 playerAnim.SetTrigger("RunRight");
-                //transform.position = new Vector3(0, height, transform.position.z);
             }
         }
     }
@@ -112,13 +108,25 @@ public class Move : MonoBehaviour
         }
     }
     // Update is called once per frame
+    
     void Update()
     {
         if (!gameManager.levelFinished)
         {
-            transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * speed);
+            
+            if (speed >= 19)
+            {
+                speed = maxSpeed;
+                transform.Translate(new Vector3(0, 0, speed) * Time.deltaTime);
+            }
+            else
+            {
+                transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * speed);
+            }
+            
 
-            if (Input.GetKeyDown(KeyCode.W) && myFoxBody.GetComponent<Player>().onGround)
+
+                if (Input.GetKeyDown(KeyCode.W) && myFoxBody.GetComponent<Player>().onGround)
             {
                 playerAnim.SetTrigger("Jump");
                 myFoxBody.GetComponent<Player>().jumpSound.Play();
@@ -148,7 +156,6 @@ public class Move : MonoBehaviour
                 mid = false;
                 transform.DOMoveX(leftBorder, transSpeed);
                 playerAnim.SetTrigger("RunLeft");
-                //transform.position = new Vector3(-2, height, transform.position.z);
             }
             else if (Input.GetKeyDown(KeyCode.A) && mid == false && onRight == true)
             {
@@ -156,7 +163,6 @@ public class Move : MonoBehaviour
                 mid = true;
                 transform.DOMoveX(0, transSpeed);
                 playerAnim.SetTrigger("RunLeft");
-                //transform.position = new Vector3(0, height, transform.position.z);
             }
 
             if (Input.GetKeyDown(KeyCode.D) && onRight == false && mid == true)
@@ -165,7 +171,6 @@ public class Move : MonoBehaviour
                 mid = false;
                 transform.DOMoveX(rightBorder, transSpeed);
                 playerAnim.SetTrigger("RunRight");
-                //transform.position = new Vector3(2, height, transform.position.z);
             }
             else if (Input.GetKeyDown(KeyCode.D) && onLeft == true && mid == false)
             {
@@ -173,7 +178,6 @@ public class Move : MonoBehaviour
                 mid = true;
                 transform.DOMoveX(0, transSpeed);
                 playerAnim.SetTrigger("RunRight");
-                //transform.position = new Vector3(0, height, transform.position.z);
             }
 
         }   

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    public int speed = 2;
+    public int speed = -2;
     GameManager gameManager;
     public ObstacleType obsType;
 
@@ -24,7 +24,7 @@ public class Obstacle : MonoBehaviour
     {
         if(obsType == ObstacleType.Train)
         {
-            speed = 8;
+            speed = -8;
         }
         else if (obsType == ObstacleType.Wall)
         {

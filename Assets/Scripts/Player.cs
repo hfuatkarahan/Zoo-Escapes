@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
 
         for (float i = 1; i >= 0; i -= 0.01f)
         {
-            yield return new WaitForSeconds(0.06f);
+            yield return new WaitForSeconds(0.05f);
             uimanager.magnetIcon.fillAmount = i;
         }
         isMagnetActive = false;
