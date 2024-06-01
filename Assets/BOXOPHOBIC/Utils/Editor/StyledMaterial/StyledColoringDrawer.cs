@@ -1,26 +1,3 @@
-﻿// Cristian Pop - https://boxophobic.com/
-
-using UnityEngine;
-using UnityEditor;
-using System;
-
-namespace Boxophobic.StyledGUI
-{
-    public class StyledColoringDrawer : MaterialPropertyDrawer
-    {
-        public StyledColoringDrawer()
-        {
-
-        }
-
-        public override void OnGUI(Rect position, MaterialProperty prop, String label, MaterialEditor materialEditor)
-        {
-            GUI.color = prop.colorValue;
-        }
-
-        public override float GetPropertyHeight(MaterialProperty prop, string label, MaterialEditor editor)
-        {
-            return -2;
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:3786dc72588301096d88b4af8ef4aec3d48a2fb7bcaf0236463bb97ac760d7a7
+size 599

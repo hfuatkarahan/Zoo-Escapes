@@ -1,20 +1,3 @@
-﻿//#if UNITY_EDITOR
-using UnityEditor;
-
-namespace Boxophobic.StyledGUI
-{
-    [CustomEditor(typeof(StyledMonoBehaviour), true)]
-    [CanEditMultipleObjects]
-    public class StyledMonoBehaviourEditor : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            serializedObject.Update();
-            EditorGUI.BeginChangeCheck();
-            DrawPropertiesExcluding(serializedObject, "m_Script");
-            if (EditorGUI.EndChangeCheck())
-                serializedObject.ApplyModifiedProperties();
-        }
-    }
-}
-//#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:8037ed2186f77dba760876b621ff9eb85fe24ff80e0fe3bd6d643f043116c024
+size 550

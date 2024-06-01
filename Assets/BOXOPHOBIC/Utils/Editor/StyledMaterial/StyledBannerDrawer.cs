@@ -1,28 +1,3 @@
-﻿// Cristian Pop - https://boxophobic.com/
-
-using UnityEngine;
-using UnityEditor;
-using Boxophobic.Constants;
-
-namespace Boxophobic.StyledGUI
-{
-    public class StyledBannerDrawer : MaterialPropertyDrawer
-    {
-        public string title;
-
-        public StyledBannerDrawer(string title)
-        {
-            this.title = title;
-        }
-
-        public override void OnGUI(Rect position, MaterialProperty prop, string label, MaterialEditor materialEditor)
-        {
-            StyledGUI.DrawInspectorBanner(title);
-        }
-
-        public override float GetPropertyHeight(MaterialProperty prop, string label, MaterialEditor editor)
-        {
-            return -4;
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:ba7584bb1dbe394db8766017cca24b5182a42bb8ee3a4f5a20aba7f7db8509bd
+size 692

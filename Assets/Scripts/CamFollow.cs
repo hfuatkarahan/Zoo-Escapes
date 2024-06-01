@@ -1,22 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class CamFollow : MonoBehaviour
-{
-    public Transform player;
-    float yOffset, zOffset;
-
-    void Start()
-    {
-        yOffset = transform.position.y - player.position.y;
-        zOffset = transform.position.z - player.position.z;
-    }
-
-
-    // Update is called once per frame
-    void LateUpdate()
-    {
-        transform.position = new Vector3(transform.position.x, player.position.y + yOffset, player.position.z + zOffset);
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:af365311c0480e16bb108c7e6e9fa00742cc8b7cb5999dd90ac3bfd836e63057
+size 527

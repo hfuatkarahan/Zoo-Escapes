@@ -1,34 +1,3 @@
-﻿using UnityEngine;
-
-namespace Boxophobic.StyledGUI
-{
-    public class StyledMask : PropertyAttribute
-    {
-        public string display = "";
-        public string file = "";
-        public string options = "";
-
-        public int top = 0;
-        public int down = 0;
-
-        public StyledMask(string file, string options, int top, int down)
-        {
-            this.file = file;
-            this.options = options;
-
-            this.top = top;
-            this.down = down;
-        }
-
-        public StyledMask(string display, string file, string options, int top, int down)
-        {
-            this.display = display;
-            this.file = file;
-            this.options = options;
-
-            this.top = top;
-            this.down = down;
-        }
-    }
-}
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:c3dc699d0f111236d828cf89739a9a06d2d0523a58d3c03da14deec1d988ae3c
+size 774

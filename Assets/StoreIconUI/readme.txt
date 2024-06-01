@@ -1,9 +1,3 @@
-Shop icons.
-Gold-silver-bronze coin icon,
-Crystal icon of white, red, orange, yellow, green, blue, indigo, violet,
-There are three levels of box icons.
-
-If you need this icon skin please link here.
-https://assetstore.unity.com/packages/slug/120272
-
-For any questions please feel free to write me-- piaofengnv888@gmail.com
+version https://git-lfs.github.com/spec/v1
+oid sha256:58fc5b327383f389cbe4b6df7a7cc79951c1b63041ce2d38e3679188b328055c
+size 321

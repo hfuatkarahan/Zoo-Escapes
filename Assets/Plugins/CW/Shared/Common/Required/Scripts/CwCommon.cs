@@ -1,16 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace CW.Common
-{
-	/// <summary>This class contains some useful methods used by this asset.</summary>
-	internal static class CwShared
-	{
-		public const string HelpUrlPrefix = "https://carloswilkes.com/Documentation/Common#";
-
-		public const string ComponentMenuPrefix = "Common/CW ";
-
-		public const string GameObjectMenuPrefix = "GameObject/CW/Common/";
-	}
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:f04c98b5cff637ea4ad6355d9d4d7ad991fd8ec81426a0e5557d0df3d8a39d06
+size 446
