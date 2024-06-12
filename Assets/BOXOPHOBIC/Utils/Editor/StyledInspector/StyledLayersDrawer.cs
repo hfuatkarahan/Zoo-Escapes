@@ -1,3 +1,49 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6a8655766fabfc9f9aaf77a72d993c311c6fdd5ca10ce009fdab5dc5156277c0
-size 1235
+﻿// Cristian Pop - https://boxophobic.com/
+
+using UnityEngine;
+using UnityEditor;
+
+namespace Boxophobic.StyledGUI
+{
+    [CustomPropertyDrawer(typeof(StyledLayers))]
+    public class StyledLayersAttributeDrawer : PropertyDrawer
+    {
+        StyledLayers a;
+        private int index;
+
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            a = (StyledLayers)attribute;
+
+            index = property.intValue;
+
+            string[] allLayers = new string[32];
+
+            for (int i = 0; i < 32; i++)
+            {
+                if (LayerMask.LayerToName(i).Length < 1)
+                {
+                    allLayers[i] = "Missing";
+                }
+                else 
+                {
+                    allLayers[i] = LayerMask.LayerToName(i);
+                }
+            }
+
+            if (a.display == "")
+            {
+                a.display = property.displayName;
+            }
+
+            index = EditorGUILayout.Popup(a.display, index, allLayers);
+
+            property.intValue = index;
+        }
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return -2;
+        }
+    }
+}

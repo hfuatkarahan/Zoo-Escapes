@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0d60df755641dcc7666b1594638cf5475b95b0d2267cb7ead22a62eb0496d03c
-size 351
+﻿// Cristian Pop - https://boxophobic.com/
+
+using UnityEngine;
+
+namespace Boxophobic.StyledGUI
+{
+    public class StyledLayers : PropertyAttribute
+    {
+        public string display = "";
+        public StyledLayers()
+        {
+        }
+
+        public StyledLayers(string display)
+        {
+            this.display = display;
+        }
+    }
+}
+

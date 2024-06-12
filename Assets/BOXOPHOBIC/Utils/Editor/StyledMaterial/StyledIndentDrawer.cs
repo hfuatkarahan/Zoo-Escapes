@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:80b78f78959f37473dcf4240ad36ee04989715888e4f891c0c9ef3fca1bef814
-size 748
+﻿// Cristian Pop - https://boxophobic.com/
+
+using UnityEngine;
+using UnityEditor;
+using System;
+
+namespace Boxophobic.StyledGUI
+{
+    public class StyledIndentDrawer : MaterialPropertyDrawer
+    {
+        public float indent;
+
+        public StyledIndentDrawer(float indent)
+        {
+            this.indent = indent;
+        }
+
+        public override void OnGUI(Rect position, MaterialProperty prop, String label, MaterialEditor materialEditor)
+        {
+            //Material material = materialEditor.target as Material;
+
+            EditorGUI.indentLevel = (int)indent;
+        }
+
+        public override float GetPropertyHeight(MaterialProperty prop, string label, MaterialEditor editor)
+        {
+            return -2;
+        }
+    }
+}

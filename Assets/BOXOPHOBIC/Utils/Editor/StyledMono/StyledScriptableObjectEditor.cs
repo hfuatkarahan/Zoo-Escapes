@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d6136da30a822ed77f400756dd52497c95eda80152935be93e246ef562b2dd28
-size 556
+﻿//#if UNITY_EDITOR
+using UnityEditor;
+
+namespace Boxophobic.StyledGUI
+{
+    [CustomEditor(typeof(StyledScriptableObject), true)]
+    [CanEditMultipleObjects]
+    public class StyledScriptableObjectEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            serializedObject.Update();
+            EditorGUI.BeginChangeCheck();
+            DrawPropertiesExcluding(serializedObject, "m_Script");
+            if (EditorGUI.EndChangeCheck())
+                serializedObject.ApplyModifiedProperties();
+        }
+    }
+}
+//#endif

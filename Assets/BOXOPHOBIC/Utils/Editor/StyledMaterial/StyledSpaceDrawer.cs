@@ -1,3 +1,60 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3be9a0e4a670c91587424b87ad8df5ed7f0fcd352e7b254ddea48b5a2a21fa3a
-size 1527
+﻿// Cristian Pop - https://boxophobic.com/
+
+using UnityEngine;
+using UnityEditor;
+
+namespace Boxophobic.StyledGUI
+{
+    public class StyledSpaceDrawer : MaterialPropertyDrawer
+    {
+        public float space;
+        public string conditions = "";
+
+        public StyledSpaceDrawer(float space)
+        {
+            this.space = space;
+        }
+
+        public StyledSpaceDrawer(float space, string conditions)
+        {
+            this.space = space;
+            this.conditions = conditions;
+        }
+
+        public override void OnGUI(Rect position, MaterialProperty prop, string label, MaterialEditor materialEditor)
+        {
+            if (conditions == "")
+            {
+                GUILayout.Space(space);
+            }
+            else
+            {
+                Material material = materialEditor.target as Material;
+
+                bool showInspector = false;
+
+                string[] split = conditions.Split(char.Parse(" "));
+
+                for (int i = 0; i < split.Length; i++)
+                {
+                    if (material.HasProperty(split[i]))
+                    {
+                        showInspector = true;
+                        break;
+                    }
+                }
+
+                if (showInspector)
+                {
+                    GUILayout.Space(space);
+                }
+            }
+
+        }
+
+        public override float GetPropertyHeight(MaterialProperty prop, string label, MaterialEditor editor)
+        {
+            return -2;
+        }
+    }
+}

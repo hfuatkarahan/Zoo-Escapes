@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:91f4d572565e0cbf0fef4d9b49fd23cc8778e3c86926297cdcd5c4ae55be42d3
-size 760
+﻿// Cristian Pop - https://boxophobic.com/
+
+using UnityEngine;
+using UnityEditor;
+using System;
+
+namespace Boxophobic.StyledGUI
+{
+    public class StyledInteractiveDrawer : MaterialPropertyDrawer
+    {
+        public StyledInteractiveDrawer()
+        {
+
+        }
+
+        public override void OnGUI(Rect position, MaterialProperty prop, String label, MaterialEditor materialEditor)
+        {
+            //if (prop.floatValue > 0.5f)
+            //{
+                //GUI.enabled = true;
+            //}
+            //else
+            {
+                GUI.enabled = false;
+            }
+        }
+
+        public override float GetPropertyHeight(MaterialProperty prop, string label, MaterialEditor editor)
+        {
+            return -2;
+        }
+    }
+}

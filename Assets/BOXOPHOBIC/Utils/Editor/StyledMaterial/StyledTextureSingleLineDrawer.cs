@@ -1,3 +1,39 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ca6a6a859c2a206b020ec736f8e4a62b2f0c3585377b7f56c620af0313efea01
-size 981
+﻿// Cristian Pop - https://boxophobic.com/
+
+using UnityEngine;
+using UnityEditor;
+
+namespace Boxophobic.StyledGUI
+{
+    public class StyledTextureSingleLineDrawer : MaterialPropertyDrawer
+    {
+        public float top;
+        public float down;
+
+        public StyledTextureSingleLineDrawer()
+        {
+            this.top = 0;
+            this.down = 0;
+        }
+
+        public StyledTextureSingleLineDrawer(float top, float down)
+        {
+            this.top = top;
+            this.down = down;
+        }
+
+        public override void OnGUI(Rect position, MaterialProperty prop, string label, MaterialEditor materialEditor)
+        {
+            GUILayout.Space(top);
+
+            materialEditor.TexturePropertySingleLine(new GUIContent(prop.displayName), prop);
+
+            GUILayout.Space(down);
+        }
+
+        public override float GetPropertyHeight(MaterialProperty prop, string label, MaterialEditor editor)
+        {
+            return -2;
+        }
+    }
+}

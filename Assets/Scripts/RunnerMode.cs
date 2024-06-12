@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c9b7b5db4f11f172e1fdd9c99f8291d5d684ff1d78a56209017313c340eabedc
-size 294
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class RunnerMode : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
