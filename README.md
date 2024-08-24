@@ -32,7 +32,7 @@ https://github.com/user-attachments/assets/dcb463df-fd4c-44fe-9b59-6ab9dfbae7ef
 
 
 <h2 align="center">👨‍💻 Unity Version 👨‍💻</h2>
-<h4 align="center">I used Unity version <b>2022.3.14f1</b> for this project. However, you can open it with any Unity version since it is a small project.</h4>
+<h4 align="center">I used Unity version <b>2022.3.14f1</b> for this project. </h4>
 
 <h2 align="center">⬇️ How to Download ⬇️</h2>
 
