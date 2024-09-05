@@ -7,10 +7,10 @@ You can play the game from this link ➡️ https://hfkarahan.itch.io/zoo-escape
 📱 The game is compatible with Android. Touch feature is active.
 
 ## 🎮 Controls
-<kbd> A </kbd>  Left or ⬅️ Swipe </br>
-<kbd> D </kbd>  Right or ➡️ Swipe </br>
-<kbd> W </kbd>  Jump or ⬆️ Swipe </br>
-<kbd> S </kbd>  Somersault or to land in the air or ⬇️ Swipe
+<kbd> A </kbd>  or ⬅️ Swipe Left </br>
+<kbd> D </kbd>  or ➡️ Swipe Right </br>
+<kbd> W </kbd>  or ⬆️ Swipe Jump </br>
+<kbd> S </kbd>  or ⬇️ Swipe Somersault or to land in the air 
 
 
 ## 📖 Features
